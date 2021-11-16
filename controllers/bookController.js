@@ -1,71 +1,54 @@
 const Book = require('../models/Book');
+const asyncHandler = require('../middleware/asyncHandler');
 
-const getAllBooks = async (req, res) => {
-	try {
-		const books = await Book.find({});
-		res.status(200).json({ books });
-	} catch (error) {
-		res.status(500).json({ msg: error.message });
+const getAllBooks = asyncHandler(async (req, res) => {
+	const books = await Book.find({});
+	res.status(200).json({ books });
+});
+
+const createBook = asyncHandler(async (req, res) => {
+	const book = await Book.create(req.body);
+	res.status(201).json({ book });
+});
+
+const getBook = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const book = await Book.findOne({ _id: id });
+
+	if (!book) {
+		return res.status(404).json({ msg: `No book with id: ${id}` });
 	}
-};
 
-const createBook = async (req, res) => {
-	try {
-		const book = await Book.create(req.body);
-		res.status(201).json({ book });
-	} catch (error) {
-		res.status(500).json({ msg: error.message });
+	res.status(200).json({ book });
+});
+
+// PATCH - will only update properties with values provided
+const updateBook = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+
+	const book = await Book.findOneAndUpdate({ _id: id }, req.body, {
+		new: true,
+		runValidators: true,
+		// overwrite: true // uncomment if you prefer PUT instead of PATCH in routes
+	});
+
+	if (!book) {
+		return res.status(404).json({ msg: `No book with the id: ${id}` });
 	}
-};
 
-const getBook = async (req, res) => {
-	try {
-		const { id } = req.params;
-		const book = await Book.findOne({ _id: id });
+	res.status(200).json({ book });
+});
 
-		if (!book) {
-			return res.status(404).json({ msg: `No book with id: ${id}` });
-		}
+const deleteBook = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const book = await Book.findOneAndDelete({ _id: id });
 
-		res.status(200).json({ book });
-	} catch (error) {
-		res.status(500).json({ msg: error.message });
+	if (!book) {
+		return res.status(404).json({ msg: `No book with the id: ${id}` });
 	}
-};
 
-const updateBook = async (req, res) => {
-	try {
-		const { id } = req.params;
-
-		const book = await Book.findOneAndUpdate({ _id: id }, req.body, {
-			new: true,
-			runValidators: true,
-		});
-
-		if (!book) {
-			return res.status(404).json({ msg: `No book with the id: ${id}` });
-		}
-
-		res.status(200).json({ book });
-	} catch (error) {
-		res.status(500).json({ msg: error.message });
-	}
-};
-
-const deleteBook = async (req, res) => {
-	try {
-		const { id } = req.params;
-		const book = await Book.findOneAndDelete({ _id: id });
-
-		if (!book) {
-			return res.status(404).json({ msg: `No book with the id: ${id}` });
-		}
-
-		res.status(200).json({ message: 'book deleted', book });
-	} catch (error) {
-		res.status(500).json({ msg: error.message });
-	}
-};
+	res.status(200).json({ message: 'book deleted', book });
+});
 
 module.exports = {
 	getAllBooks,

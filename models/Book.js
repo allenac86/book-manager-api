@@ -5,7 +5,7 @@ const BookSchema = new mongoose.Schema({
 		type: String,
 		required: [true, 'must provide title'],
 		trim: true,
-		maxlength: [30, 'title can not be more than 20 characters long'],
+		maxlength: [100, 'title can not be more than 100 characters long'],
 	},
 	author: {
 		type: String,
@@ -13,9 +13,15 @@ const BookSchema = new mongoose.Schema({
 		trim: true,
 		maxlength: [30, 'author can not be more than 30 characters long'],
 	},
-	read: {
+	series: {
+		type: String,
+	},
+	numInSeries: {
+		type: Number,
+	},
+	isRead: {
 		type: Boolean,
-		default: false,
+		default: true,
 	},
 });
 

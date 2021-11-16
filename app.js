@@ -3,6 +3,7 @@ const app = express();
 const books = require('./routes/bookRoutes');
 const connect = require('./db/db');
 const cors = require('cors');
+const notFound = require('./middleware/notFound');
 require('dotenv').config();
 
 // middleware
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // routes
 app.use('/api/v1/books', books);
+
+// 404 middleware
+app.use(notFound);
 
 const PORT = 3000;
 
