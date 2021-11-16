@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const books = require('./routes/bookRoutes');
-const connectDB = require('./db/db');
+const connect = require('./db/db');
 require('dotenv').config();
 
 // middleware
@@ -14,7 +14,7 @@ const PORT = 3000;
 
 const start = async () => {
 	try {
-		await connectDB(process.env.MONGO_URI);
+		await connect(process.env.MONGO_URI);
 		app.listen(PORT, console.log(`Server is listening on port: ${PORT} ...`));
 	} catch (err) {
 		console.error(err);
