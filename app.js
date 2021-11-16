@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const books = require('./routes/bookRoutes');
 const connect = require('./db/db');
+const cors = require('cors');
 require('dotenv').config();
 
 // middleware
+app.use(cors());
 app.use(express.json());
 
 // routes
