@@ -13,8 +13,11 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-// redirect to resume route for now
-// will come back to root path once front end skeleton is setup
+/**
+ * redirect to resume route for now
+ * come back to root path once front end skeleton is setup to
+ * determine what data will be used on the landing page
+ */
 app.get('/', (req, res) => {
 	res.redirect(process.env.CV_PATH);
 });
