@@ -4,6 +4,7 @@ const books = require('./routes/bookRoutes');
 const connect = require('./db/db');
 const cors = require('cors');
 const notFound = require('./middleware/notFound');
+const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 
 // middleware
@@ -15,6 +16,7 @@ app.use('/api/v1/books', books);
 
 // 404 middleware
 app.use(notFound);
+app.use(errorHandler);
 
 const PORT = 3000;
 
