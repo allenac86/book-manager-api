@@ -5,6 +5,7 @@ const connect = require('./db/db');
 const cors = require('cors');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
+const resumeData = require('./data/resume.json');
 require('dotenv').config();
 
 // middleware
@@ -12,7 +13,17 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/api/v1/books', books);
+// redirect to resume route for now
+// will come back to root path once front end skeleton is setup
+app.get('/', (req, res) => {
+	res.redirect(process.env.CV_PATH);
+});
+
+app.get(process.env.CV_PATH, (req, res) => {
+	res.status(200).json({ resumeData });
+});
+
+app.use(process.env.API_PATH, books);
 
 // 404 middleware
 app.use(notFound);

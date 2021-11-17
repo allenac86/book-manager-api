@@ -1,0 +1,43 @@
+{
+	"name": "Adam C Allen",
+	"phone": "(716) 913-7903",
+	"email": "allenac86@gmail.com",
+	"website": {
+		"url": "https://www.doubleawebdev.com/",
+		"status": "Under Construction"
+	},
+	"socials": {
+		"github": "",
+		"linkedin": "",
+		"upwork": ""
+	},
+	"programming_experience": {
+		"travelers": {
+			"title": "",
+			"start_date": "",
+			"end_date": "Present"
+		},
+		"employment_history": {
+			"usmc": {
+				"title": "",
+				"start_date": "",
+				"end_date": ""
+			},
+			"best_buy": {
+				"title": "",
+				"start_date": "",
+				"end_date": ""
+			},
+			"csoki": {
+				"title": "",
+				"start_date": "",
+				"end_date": ""
+			},
+			"travelers": {
+				"title": "",
+				"start_date": "",
+				"end_date": ""
+			}
+		}
+	}
+}
