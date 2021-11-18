@@ -1,5 +1,6 @@
 const Book = require('../models/Book');
 const asyncHandler = require('../middleware/asyncHandler');
+const { createCustomError } = require('../errors/CustomError');
 
 const getAllBooks = asyncHandler(async (req, res) => {
 	const books = await Book.find({});
@@ -11,19 +12,19 @@ const createBook = asyncHandler(async (req, res) => {
 	res.status(201).json({ book });
 });
 
-const getBook = asyncHandler(async (req, res) => {
+const getBook = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const book = await Book.findOne({ _id: id });
 
 	if (!book) {
-		return res.status(404).json({ msg: `No book with id: ${id}` });
+		return next(createCustomError(`No book found with id: ${id}`, 404));
 	}
 
 	res.status(200).json({ book });
 });
 
 // PATCH - will only update properties with values provided
-const updateBook = asyncHandler(async (req, res) => {
+const updateBook = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 
 	const book = await Book.findOneAndUpdate({ _id: id }, req.body, {
@@ -33,18 +34,18 @@ const updateBook = asyncHandler(async (req, res) => {
 	});
 
 	if (!book) {
-		return res.status(404).json({ msg: `No book with the id: ${id}` });
+		return next(createCustomError(`No book found with id: ${id}`, 404));
 	}
 
 	res.status(200).json({ book });
 });
 
-const deleteBook = asyncHandler(async (req, res) => {
+const deleteBook = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const book = await Book.findOneAndDelete({ _id: id });
 
 	if (!book) {
-		return res.status(404).json({ msg: `No book with the id: ${id}` });
+		return next(createCustomError(`No book found with id: ${id}`, 404));
 	}
 
 	res.status(200).json({ message: 'book deleted', book });

@@ -6,6 +6,7 @@ const cors = require('cors');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 const resumeData = require('./data/resume.json');
+const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 
 // middleware
@@ -31,8 +32,6 @@ app.use(process.env.API_PATH, books);
 // 404 middleware
 app.use(notFound);
 app.use(errorHandler);
-
-const PORT = 3000;
 
 const start = async () => {
 	try {
