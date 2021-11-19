@@ -20,14 +20,14 @@ app.use(express.json());
  * determine what data will be used on the landing page
  */
 app.get('/', (req, res) => {
-	res.redirect(process.env.CV_PATH);
+	res.redirect('/api/vi/resume');
 });
 
-app.get(process.env.CV_PATH, (req, res) => {
+app.get('/api/v1/resume', (req, res) => {
 	res.status(200).json({ resumeData });
 });
 
-app.use(process.env.API_PATH, books);
+app.use('/api/v1/books', books);
 
 // 404 middleware
 app.use(notFound);
