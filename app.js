@@ -4,7 +4,7 @@ const books = require('./routes/bookRoutes');
 const connect = require('./db/db');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4200;
 require('dotenv').config();
 
 // middleware
